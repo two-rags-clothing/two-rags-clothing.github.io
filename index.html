@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Two Rags is coming!</title>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Lobster|Raleway|Karla' rel='stylesheet' type='text/css'>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                font-family: Karla, Arial, sans-serif;
+                color: #333;
+            }
+            .wrapper {
+                margin: 0 auto;
+                width: 700px;
+                text-align: center;
+            }
+            .countdown {
+                display: inline-block;
+                font-size: 100px;
+                font-family: monospace;
+                padding: 15px;
+                margin-top: 50px;
+            }
+            h1 {
+                font-family: Karla, Arial, sans-serif;
+                margin-top: 60px;
+            }
+            h1 > * {
+                vertical-align: middle;
+                margin-top: -10px;
+            }
+            p {
+                text-align: left;
+                line-height: 30px;
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="countdown"></div>
+            <h1><img width="200" height="56" src="logo.png" alt="Two Rags Clothing" /> is launching!</h1>
+            <p>We're excited to announce that on April 9, we'll be launching Two Rags Clothing's online ethical underwear shop. When you buy our designs, we provide feminine hygiene to girls in need. Get ready!</p>
+        </div>
+        <script>
+            var launchDate = new Date('2015-04-08T14:00:00Z').getTime();
+            var countdown = document.querySelector('.countdown');
+
+            function pad(n) {
+                if (n >= 10) return n + '';
+                return '0' + n;
+            }
+
+            var sec = 1000;
+            var min = 60 * sec;
+            var hour = 60 * min;
+            var day = 24 * hour;
+
+            function fillCountdown() {
+                var now = new Date().getTime();
+                var diff = launchDate - now;
+
+                var values = [day, hour, min, sec].reduce(function(data, unit) {
+                    data.values.push(Math.floor(data.diff / unit));
+                    data.diff %= unit;
+                    return data;
+                }, {
+                    diff : launchDate - now,
+                    values : []
+                }).values;
+
+                countdown.textContent = values.map(pad).join(':');
+            }
+
+            fillCountdown();
+            setInterval(fillCountdown, 1000);
+        </script>
+    </body>
+</html>
